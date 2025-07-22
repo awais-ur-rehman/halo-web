@@ -2,7 +2,6 @@ import Hero from '../sections/Hero/Hero';
 import Features from '../sections/Features/Features';
 import InvestmentOpportunities from '../sections/InvestmentOpportunities/InvestmentOpportunities';
 import HowItWorks from '../sections/HowItWorks';
-import AIInvestments from '../sections/AIInvestments/AIInvestments';
 
 // import Pricing from '../sections/Pricing/Pricing';
 
@@ -17,8 +16,6 @@ const Home = () => (
       <Features />
       <InvestmentOpportunities />
       <HowItWorks />
-      <AIInvestments />
-
       <ContactForPricing />
 
     </div>
