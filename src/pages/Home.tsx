@@ -2,9 +2,12 @@ import Hero from '../sections/Hero/Hero';
 import Features from '../sections/Features/Features';
 import InvestmentOpportunities from '../sections/InvestmentOpportunities/InvestmentOpportunities';
 import HowItWorks from '../sections/HowItWorks';
-import Pricing from '../sections/Pricing/Pricing';
-import Hiring from '../sections/Hiring/Hiring';
+import AIInvestments from '../sections/AIInvestments/AIInvestments';
+
+// import Pricing from '../sections/Pricing/Pricing';
+
 import Navbar from '../components/Navbar';
+import ContactForPricing from '../sections/ContactForPricing';
 
 const Home = () => (
   <>
@@ -14,7 +17,10 @@ const Home = () => (
       <Features />
       <InvestmentOpportunities />
       <HowItWorks />
-      <Pricing />
+      <AIInvestments />
+
+      <ContactForPricing />
+
     </div>
   </>
 );
