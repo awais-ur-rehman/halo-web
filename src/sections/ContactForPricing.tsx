@@ -1,4 +1,3 @@
-import React from 'react';
 
 const ContactForPricing = () => (
   <section className="w-full py-20 bg-gradient-to-b from-white to-blue-50/30 flex flex-col items-center">

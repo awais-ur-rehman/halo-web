@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const plans = [
   {
@@ -75,7 +75,7 @@ const Pricing = () => {
       </div>
       {/* Pricing Cards */}
       <div className="w-full max-w-5xl flex flex-col md:flex-row gap-8 justify-center items-stretch">
-        {plans.map((plan, idx) => (
+        {plans.map((plan, _idx) => (
           <div
             key={plan.name}
             className={`flex-1 bg-white rounded-2xl border ${plan.highlight ? 'border-blue-700 shadow-lg' : 'border-gray-200'} p-8 flex flex-col min-w-[260px] max-w-[370px] transition-transform duration-200 hover:-translate-y-2 relative`}

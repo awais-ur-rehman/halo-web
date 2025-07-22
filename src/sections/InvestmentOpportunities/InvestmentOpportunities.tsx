@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Building2, XCircle, Briefcase, RefreshCcw, HeartCrack, Banknote, Smartphone, Clock, FileText } from 'lucide-react';
 
 const painPoints = [

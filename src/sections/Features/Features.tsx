@@ -1,4 +1,3 @@
-import React from 'react';
 import { Globe, BarChart2, Target, Zap } from 'lucide-react';
 
 const features = [
