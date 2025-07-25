@@ -1,6 +1,5 @@
-import { FiUser, FiBarChart2, FiVolumeX, FiVolume2 } from 'react-icons/fi';
+import { FiUser, FiBarChart2 } from 'react-icons/fi';
 import { Line } from 'react-chartjs-2';
-import { useState, useRef } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import haloDemoVideo from "../../assets/video/halo-demo-video.mp4";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -112,15 +110,7 @@ const shimmerStyle = `
 `;
 
 const Hero = () => {
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
-    }
-  };
 
   return (
     <section className="w-full flex flex-col items-center justify-center bg-gradient-to-b from-white to-blue-50/40 to-90% pt-12 pb-8 px-2">
