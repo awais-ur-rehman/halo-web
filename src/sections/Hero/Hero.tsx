@@ -1,5 +1,6 @@
-import { FiUser, FiBarChart2 } from 'react-icons/fi';
+import { FiUser, FiBarChart2, FiVolumeX, FiVolume2 } from 'react-icons/fi';
 import { Line } from 'react-chartjs-2';
+import { useState, useRef } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import haloDemoVideo from "../../assets/video/halo-demo-video.mp4";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -42,6 +44,7 @@ const chartData = {
     },
   ],
 };
+
 const chartOptions = {
   responsive: true,
   plugins: {
@@ -71,72 +74,127 @@ const chartOptions = {
   },
 };
 
-const Hero = () => (
-  <section className="w-full flex flex-col items-center justify-center bg-gradient-to-b from-white to-blue-50/40 to-90% pt-12 pb-8 px-2">
-    <div className="relative w-full max-w-[98vw] rounded-3xl bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40 border border-gray-100 px-2 md:px-8 py-10 md:py-16 mx-auto overflow-hidden">
-      {/* Badge */}
-      <div className="relative z-10 mb-4 flex justify-center">
-        <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-gray-100 text-gray-700 text-sm font-medium shadow-sm border border-gray-200">
-          <span className="text-lg">✦</span> Welcome to Beta Version!
-        </span>
-      </div>
-      {/* Headline */}
-      <h1 className="relative z-10 text-3xl md:text-5xl font-bold text-center text-black leading-tight mb-4">
-        AI-Powered Geo-Listening<br />
-        <span className="font-normal">For Every Banking Branch.</span>
-      </h1>
-      {/* Subheadline */}
-      <p className="relative z-10 text-center text-gray-700 max-w-2xl mb-10 mx-auto">
-        HAL0 is Pakistan's first comprehensive geo-listening intelligence platform, enabling actionable insights for every branch, every service, and every customer touchpoint across your entire banking network. Our innovative platform transforms scattered customer feedback into strategic intelligence that drives data-driven decisions.
-      </p>
-      {/* Network/Flow Layout */}
-      <div className="relative z-10 w-full max-w-4xl flex flex-col items-center mx-auto">
-        <div className="flex w-full justify-between items-center mb-8">
-          {/* Left: Customer Quote Card */}
-          <div className="bg-white rounded-2xl shadow-md p-4 max-w-xs flex flex-col gap-2 border border-gray-100">
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                <FiUser className="text-gray-500 text-xl" />
+/** SHIMMER EFFECT CSS **/
+const shimmerStyle = `
+  .shimmer {
+    position: relative;
+    color: #111;
+    background: linear-gradient(90deg, #111 0%, #111 30%, #e5eaf2 50%, #111 70%, #111 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer-move 3.5s linear infinite;
+  }
+  @keyframes shimmer-move {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+  
+  .glass-button {
+    background: rgb(24, 23, 23);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-button:hover {
+    background: rgba(61, 59, 59, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+  }
+  
+  .glass-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 16px 0 rgba(31, 38, 135, 0.3);
+  }
+`;
+
+const Hero = () => {
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
+
+  return (
+    <section className="w-full flex flex-col items-center justify-center bg-gradient-to-b from-white to-blue-50/40 to-90% pt-12 pb-8 px-2">
+      {/* Inject shimmer CSS */}
+      <style>{shimmerStyle}</style>
+
+      <div className="relative w-full max-w-[98vw] rounded-3xl bg-gradient-to-br from-white via-blue-50/60 to-blue-100/40 border border-gray-100 px-2 md:px-8 py-10 md:py-16 mx-auto overflow-hidden">
+        {/* Badge */}
+        <div className="relative z-10 mb-4 flex justify-center">
+          <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-gray-100 text-gray-700 text-sm font-medium shadow-sm border border-gray-200">
+            <span className="text-lg">✦</span> Welcome to Beta Version!
+          </span>
+        </div>
+        {/* Headline */}
+        <h1 className="relative z-10 text-3xl md:text-5xl font-bold text-center text-black leading-tight mb-4">
+          <span className="shimmer block h-14 w-fit mx-auto">AI-Powered Geo-Listening</span>
+        </h1>
+        <h2 className='text-center text-gray-700 text-3xl max-w-2xl mb-4 mx-auto'>For Every Banking Branch.</h2>
+        {/* Subheadline */}
+        <p className="relative z-10 text-center text-gray-700 max-w-2xl mb-10 mx-auto">
+          HAL0 is Pakistan's first comprehensive geo-listening intelligence platform, enabling actionable insights for every branch, every service, and every customer touchpoint across your entire banking network. Our innovative platform transforms scattered customer feedback into strategic intelligence that drives data-driven decisions.
+        </p>
+        {/* Network/Flow Layout */}
+        <div className="relative z-10 w-full max-w-4xl flex flex-col items-center mx-auto">
+          <div className="flex w-full justify-between items-center mb-4">
+            {/* Left: Customer Quote Card */}
+            <div className="bg-white rounded-2xl shadow-md p-4 max-w-xs flex flex-col gap-2 border border-gray-100">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                  <FiUser className="text-gray-500 text-xl" />
+                </div>
+                <div>
+                  <div className="font-semibold text-black text-sm">{customerQuote.name}</div>
+                  <div className="text-xs text-gray-500">{customerQuote.location}</div>
+                </div>
               </div>
-              <div>
-                <div className="font-semibold text-black text-sm">{customerQuote.name}</div>
-                <div className="text-xs text-gray-500">{customerQuote.location}</div>
-              </div>
+              <div className="text-xs text-gray-700 italic line-clamp-3">{customerQuote.quote}</div>
             </div>
-            <div className="text-xs text-gray-700 italic line-clamp-3">{customerQuote.quote}</div>
-          </div>
-          {/* Center: (empty for spacing) */}
-          <div className="flex flex-col items-center mx-2" />
-          {/* Right: Stat/Benefit Card with Chart */}
-          <div className="bg-white rounded-2xl shadow-md p-4 max-w-xs flex flex-col gap-2 border border-gray-100 min-w-[220px]" style={{ background: '#F8F9FA' }}>
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
-                <FiBarChart2 className="text-black text-xl" />
+            {/* Center: (empty for spacing) */}
+            <div className="flex flex-col items-center mx-2" />
+            {/* Right: Stat/Benefit Card with Chart */}
+            <div className="bg-white rounded-2xl shadow-md p-4 max-w-xs flex flex-col gap-2 border border-gray-100 min-w-[220px]" style={{ background: '#F8F9FA' }}>
+              <div className="flex items-center gap-2 mb-1">
+                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                  <FiBarChart2 className="text-black text-xl" />
+                </div>
+                <div>
+                  <div className="font-semibold text-black text-sm">{statCard.title}</div>
+                  <div className="text-xs text-gray-700">{statCard.value}</div>
+                </div>
               </div>
-              <div>
-                <div className="font-semibold text-black text-sm">{statCard.title}</div>
-                <div className="text-xs text-gray-700">{statCard.value}</div>
+              <div className="h-20 w-full">
+                <Line data={chartData} options={chartOptions} />
               </div>
+              <div className="text-xs text-gray-600">{statCard.description}</div>
             </div>
-            <div className="h-20 w-full">
-              <Line data={chartData} options={chartOptions} />
-            </div>
-            <div className="text-xs text-gray-600">{statCard.description}</div>
           </div>
         </div>
-      </div>
-      {/* Bottom semi-circle for transition to next section (outside container) with ripple effect */}
-      <div className="absolute left-1/2 bottom-0 -translate-x-1/2 w-64 h-32 overflow-visible flex justify-center z-20">
-        <svg width="100%" height="100%" viewBox="0 0 512 256" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute left-1/2 bottom-0 -translate-x-1/2">
-          <g>
-            <path d="M0 256C0 114.615 114.615 0 256 0C397.385 0 512 114.615 512 256" stroke="#E5EAF2" strokeWidth="2" />
-            <path d="M-32 256C-32 82.615 82.615 -32 256 -32C429.385 -32 544 82.615 544 256" stroke="#E5EAF2" strokeWidth="1.5" opacity="0.5" />
-            <path d="M-64 256C-64 50.615 50.615 -64 256 -64C561.385 -64 676 50.615 676 256" stroke="#E5EAF2" strokeWidth="1" opacity="0.3" />
-          </g>
-        </svg>
-      </div>
-    </div>
-  </section>
-);
 
-export default Hero; 
+        {/* Demo Video Container with Custom Unmute Button */}
+        <div className="relative w-full max-w-4xl mx-auto mt-8">
+  <iframe
+    src="https://player.vimeo.com/video/1104554985?autoplay=1&muted=1&loop=1&background=0"
+    className="w-full rounded-xl shadow-lg border border-gray-200"
+    style={{ aspectRatio: '16/9', minHeight: 300 }}
+    frameBorder="0"
+    allow="autoplay; fullscreen; picture-in-picture"
+    allowFullScreen
+    title="Demo Video"
+  />
+</div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;

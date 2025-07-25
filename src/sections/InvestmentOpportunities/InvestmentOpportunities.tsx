@@ -95,8 +95,16 @@ const categoryColors = {
   'Documentation': 'bg-gray-200 text-gray-800',
 };
 
+const CARD_OFFSET_Y = 18; // px, vertical offset for arc effect
+
 const InvestmentOpportunities = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const N = painPoints.length;
+  const center = (N - 1) / 2;
+
+  // Calculate horizontal distribution for equal spacing
+  const leftStart = 20; // percent, leftmost card
+  const leftEnd = 80; // percent, rightmost card
 
   return (
     <section className="w-full py-20 bg-white flex flex-col items-center">
@@ -105,22 +113,26 @@ const InvestmentOpportunities = () => {
         <h2 className="text-3xl md:text-4xl font-extrabold text-black mb-4">Discover Real Customer Pain Points Across Pakistan's Banking Network</h2>
         <p className="text-lg text-gray-700 mb-2">Every day, thousands of banking customers share their experiences online. These voices reveal critical insights that drive business outcomes - insights most banks never capture or act upon.</p>
       </div>
-      {/* Stacked Deck of Cards */}
+      {/* Deck/Fan of Cards */}
       <div
         className="relative w-full flex flex-col items-center justify-center min-h-[500px] mb-12"
-        style={{ height: '400px' }}
+        style={{ height: '440px' }}
         onMouseLeave={() => setHoveredIndex(null)}
       >
         {painPoints.map((p, i) => {
+          // Equally distribute cards horizontally
+          const leftPercent = leftStart + ((leftEnd - leftStart) * i) / (N - 1);
+          const left = `calc(${leftPercent}% )`;
+          // Move cards further down
+          const top = `${220 + Math.abs(i - center) * CARD_OFFSET_Y}px`;
           const isHovered = hoveredIndex === i;
           return (
             <div
               key={i}
-              className={`pain-point-card absolute gap-8 top-1/2 transition-all duration-400 group p-8`}
+              className={`pain-point-card absolute transition-all duration-400 group p-8`}
               style={{
-                transform: isHovered
-                  ? `translate(-50%, -50%) translateY(${i * 10 - 20}px) translateX(${i * 10 + 10}px) scale(1.08) rotate(2deg)`
-                  : `translate(-50%, -50%) translateY(${i * 20}px) translateX(${i * 60}px) scale(1)`,
+                left,
+                top,
                 minWidth: 340,
                 maxWidth: 360,
                 boxShadow: isHovered
@@ -130,6 +142,9 @@ const InvestmentOpportunities = () => {
                 background: '#fff',
                 border: '1.5px solid #E9ECEF',
                 zIndex: isHovered ? 99 : i + 1,
+                transform: isHovered
+                  ? 'translate(-50%, -60%) scale(1.08)'
+                  : 'translate(-50%, -60%) scale(1)',
                 transition: 'transform 0.4s cubic-bezier(.4,2,.6,1), box-shadow 0.4s, opacity 0.4s',
               }}
               onMouseEnter={() => setHoveredIndex(i)}
