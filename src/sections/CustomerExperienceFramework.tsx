@@ -1,4 +1,3 @@
-import React from 'react';
 
 // Define a type for the card data
 interface Card {
